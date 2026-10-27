@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickFix - Campus Problem Reporting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app" class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🔧 QuickFix</h1>
+                    <p class="tagline">Campus Problem Reporting & Management</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Login Section -->
+            <section id="loginSection" class="auth-section active">
+                <div class="auth-card">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Sign in to your account</p>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="loginEmail" 
+                                placeholder="Enter your email" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input 
+                                type="password" 
+                                id="loginPassword" 
+                                placeholder="Enter your password" 
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? 
+                            <button type="button" class="link-btn" id="switchToRegister">
+                                Register here
+                            </button>
+                        </p>
+                    </div>
+
+                    <!-- Demo Credentials -->
+                    <!-- <div class="demo-info">
+                        <p><strong>Demo User:</strong> user@campus.edu / password123</p>
+                        <p><strong>Demo Admin:</strong> admin@campus.edu / admin123</p>
+                    </div> -->
+                </div>
+            </section>
+
+            <!-- Register Section -->
+            <section id="registerSection" class="auth-section">
+                <div class="auth-card">
+                    <h2>Create Account</h2>
+                    <p class="auth-subtitle">Join QuickFix today</p>
+                    
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="registerName" 
+                                placeholder="Enter your full name" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="registerEmail" 
+                                placeholder="Enter your email" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input 
+                                type="password" 
+                                id="registerPassword" 
+                                placeholder="Create a password" 
+                                required
+                                minlength="6"
+                            >
+                            <small>Minimum 6 characters</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerConfirmPassword">Confirm Password</label>
+                            <input 
+                                type="password" 
+                                id="registerConfirmPassword" 
+                                placeholder="Confirm your password" 
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account? 
+                            <button type="button" class="link-btn" id="switchToLogin">
+                                Sign in here
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

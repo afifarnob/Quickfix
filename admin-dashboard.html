@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - QuickFix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Header Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🔧 QuickFix Admin</h1>
+                </div>
+                <nav class="nav-menu">
+                    <span id="adminNameDisplay" class="user-info"></span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+                <button class="tab-btn" data-tab="all-reports">All Reports</button>
+                <button class="tab-btn" data-tab="staff">Staff Management</button>
+                <button class="tab-btn" data-tab="categories">Categories</button>
+                <button class="tab-btn" data-tab="backup">💾 Backup & Export</button>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Reports</h3>
+                        <p id="totalReports" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Approval</h3>
+                        <p id="pendingReports" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>In Progress</h3>
+                        <p id="inProgressReports" class="stat-number">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Resolved</h3>
+                        <p id="resolvedReports" class="stat-number">0</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <h2>📊 Recent Reports</h2>
+                    <div id="recentReports" class="reports-list">
+                        <p class="empty-state">No reports yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Reports Tab -->
+            <section id="all-reports" class="tab-content">
+                <div class="card">
+                    <h2>📋 All Reports</h2>
+          
+                    <!-- Filters -->
+                    <div class="filter-section">
+                        <select id="adminStatusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="Reported">Reported</option>
+                            <option value="Approved">Approved</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+
+                    <!-- Reports Table -->
+                    <div class="table-wrapper">
+                        <table id="reportsTable" class="reports-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Submitted By</th>
+                                    <th>Status</th>
+                                    <th>Assigned To</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" class="empty-state">No reports found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Staff Management Tab -->
+            <section id="staff" class="tab-content">
+                <div class="card">
+                    <h2>👷 Staff Management</h2>
+                    
+                    <!-- Add Staff Form -->
+                    <div class="form-section">
+                        <h3>Add New Staff Member</h3>
+                        <form id="addStaffForm" class="report-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="staffName">Name</label>
+                                    <input type="text" id="staffName" placeholder="Staff name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="staffEmail">Email</label>
+                                    <input type="email" id="staffEmail" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="staffSpecialty">Specialty</label>
+                                    <input type="text" id="staffSpecialty" placeholder="e.g., Electrical, Plumbing" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="staffPhone">Phone</label>
+                                    <input type="tel" id="staffPhone" placeholder="Phone number">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Staff Member</button>
+                        </form>
+                    </div>
+
+                    <!-- Staff List -->
+                    <div class="staff-list">
+                        <h3>Current Staff</h3>
+                        <div id="staffListContainer">
+                            <p class="empty-state">No staff members added yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Backup & Export Tab -->
+            <section id="backup" class="tab-content">
+                <div class="card">
+                    <h2>💾 Backup & Export Data</h2>
+                    <p style="color: #7f8c8d; margin-bottom: var(--spacing-lg);">
+                        Export all your QuickFix data in different formats. Keep regular backups of your data.
+                    </p>
+
+                    <div class="export-buttons">
+                        <button class="btn btn-primary" id="exportJSON">
+                            📄 Export as JSON
+                        </button>
+                        <button class="btn btn-primary" id="exportCSV">
+                            📊 Export Reports as CSV
+                        </button>
+                        <button class="btn btn-primary" id="exportHTML">
+                            📋 Export as HTML Report
+                        </button>
+                    </div>
+
+                    <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 1px solid var(--border-color);">
+
+                    <h3>📥 Import Data from Backup</h3>
+                    <p style="color: #7f8c8d; margin-bottom: var(--spacing-md);">
+                        Restore data from a previously exported JSON backup file. This will merge the imported data with existing data.
+                    </p>
+
+                    <div class="import-section">
+                        <input type="file" id="importFile" accept=".json" style="margin-bottom: var(--spacing-md);">
+                        <button class="btn btn-success" id="importDataBtn">
+                            ✅ Import JSON Backup
+                        </button>
+                        <p style="color: #e74c3c; margin-top: var(--spacing-sm); font-size: 0.9rem;">
+                            <strong>Warning:</strong> Importing will add/update data. Make a backup first!
+                        </p>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-lg); padding: var(--spacing-lg); background-color: var(--light-bg); border-radius: var(--border-radius);">
+                        <h3>📧 How to Send Files via Email:</h3>
+                        <ol style="color: var(--dark-text); line-height: 1.8;">
+                            <li>Click any export button above to download the file</li>
+                            <li>Open your email client (Gmail, Outlook, etc.)</li>
+                            <li>Create a new email to yourself or your team</li>
+                            <li>Attach the downloaded file</li>
+                            <li>Send the email</li>
+                        </ol>
+                    </div>
+
+                    <div style="margin-top: var(--spacing-lg); padding: var(--spacing-lg); background-color: #fef9e7; border-radius: var(--border-radius); border-left: 4px solid var(--warning-color);">
+                        <h3>💡 Backup Tips:</h3>
+                        <ul style="color: var(--dark-text);">
+                            <li>Export data regularly (weekly or monthly)</li>
+                            <li>Keep backups in a safe location (cloud storage, email, external drive)</li>
+                            <li>JSON format preserves all data including images</li>
+                            <li>CSV format is good for reports and spreadsheets</li>
+                            <li>HTML format is great for printable reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Tab -->
+            <section id="categories" class="tab-content">
+                <div class="card">
+                    <h2>📂 Category Management</h2>
+                    
+                    <!-- Add Category Form -->
+                    <div class="form-section">
+                        <h3>Add New Category</h3>
+                        <form id="addCategoryForm" class="report-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name</label>
+                                    <input type="text" id="categoryName" placeholder="e.g., Electrical" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoryDescription">Description</label>
+                                    <input type="text" id="categoryDescription" placeholder="Category description" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
+                        </form>
+                    </div>
+
+                    <!-- Categories List -->
+                    <div class="categories-list">
+                        <h3>Current Categories</h3>
+                        <div id="categoriesContainer">
+                            <p class="empty-state">No categories added yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Report Action Modal -->
+        <div id="reportActionModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Report Details & Actions</h2>
+                
+                <div id="reportActionDetail" class="report-detail"></div>
+                
+                <div class="modal-actions">
+                    <div class="form-group">
+                        <label for="actionStatus">Update Status</label>
+                        <select id="actionStatus">
+                            <option value="">Select action...</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Rejected">Reject</option>
+                            <option value="In Progress">Mark In Progress</option>
+                            <option value="Resolved">Mark Resolved</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assignStaff">Assign to Staff</label>
+                        <select id="assignStaff">
+                            <option value="">Select staff member...</option>
+                        </select>
+                    </div>
+
+                    <textarea 
+                        id="adminNotes" 
+                        placeholder="Add notes (optional)" 
+                        rows="3"
+                    ></textarea>
+
+                    <div class="modal-buttons">
+                        <button id="saveActionBtn" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" id="closeActionModal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="backup.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

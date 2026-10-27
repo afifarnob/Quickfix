@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - QuickFix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Header Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🔧 QuickFix</h1>
+                </div>
+                <nav class="nav-menu">
+                    <span id="userNameDisplay" class="user-info"></span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="submit-report">Submit Report</button>
+                <button class="tab-btn" data-tab="my-reports">My Reports</button>
+            </div>
+
+            <!-- Submit Report Tab -->
+            <section id="submit-report" class="tab-content active">
+                <div class="card">
+                    <h2>📝 Submit New Report</h2>
+                    <form id="reportForm" class="report-form">
+                        <div class="form-group">
+                            <label for="reportTitle">Report Title *</label>
+                            <input 
+                                type="text" 
+                                id="reportTitle" 
+                                placeholder="e.g., Broken door in Building A"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportDescription">Description *</label>
+                            <textarea 
+                                id="reportDescription" 
+                                placeholder="Provide detailed description of the problem..."
+                                rows="4"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reportCategory">Category *</label>
+                                <select id="reportCategory" required>
+                                    <option value="">Select a category</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reportLocation">Location *</label>
+                                <input 
+                                    type="text" 
+                                    id="reportLocation" 
+                                    placeholder="e.g., Building A, Room 101"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportImage">Attach Image (Optional)</label>
+                            <input 
+                                type="file" 
+                                id="reportImage" 
+                                accept="image/*"
+                            >
+                            <small>Max 5MB. Supported: JPG, PNG, GIF</small>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Submit Report</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- My Reports Tab -->
+            <section id="my-reports" class="tab-content">
+                <div class="card">
+                    <h2>📋 My Reports</h2>
+                    
+                    <!-- Filters -->
+                    <div class="filter-section">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">All Status</option>
+                            <option value="Reported">Reported</option>
+                            <option value="Approved">Approved</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                    <!-- Reports List -->
+                    <div id="reportsList" class="reports-list">
+                        <p class="empty-state">No reports yet. Submit your first report!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Edit Report Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Report</h2>
+                <form id="editForm" class="report-form">
+                    <input type="hidden" id="editReportId">
+                    
+                    <div class="form-group">
+                        <label for="editTitle">Report Title</label>
+                        <input type="text" id="editTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDescription">Description</label>
+                        <textarea id="editDescription" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCategory">Category</label>
+                            <select id="editCategory" required></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editLocation">Location</label>
+                            <input type="text" id="editLocation" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editImage">Update Image (Optional)</label>
+                        <input type="file" id="editImage" accept="image/*">
+                        <div id="editImagePreview" class="image-preview"></div>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" id="closeEditModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- View Report Modal -->
+        <div id="viewModal" class="modal">
+            <div class="modal-content modal-large">
+                <span class="close">&times;</span>
+                <div id="reportDetail"></div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="user.js"></script>
+</body>
+</html>
